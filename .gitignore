@@ -1,4 +1,2 @@
 build/
 .vscode/
-tools/linux/cmake/
-tools/windows/cmake/doc/

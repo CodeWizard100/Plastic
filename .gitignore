@@ -1,2 +1,8 @@
 build/
 .vscode/
+tools/linux/cmake/
+tools/windows/cmake/docs/*
+!tools/windows/cmake/docs/.gitkeep
+
+tools/windows/cmake/man/*
+!tools/windows/cmake/man/.gitkeep

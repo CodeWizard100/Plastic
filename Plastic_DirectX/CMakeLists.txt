@@ -1,5 +1,6 @@
 # Get folder name as unique target
-get_filename_component(MODULE_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+set(MODULE_NAME "Plastic_DirectX")
+
 
 # Source files
 file(GLOB_RECURSE LOCAL_SRC src/*.cpp src/*.c)

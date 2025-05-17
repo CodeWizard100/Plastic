@@ -1,6 +1,5 @@
 # Get folder name as unique target
-get_filename_component(MODULE_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-
+set(MODULE_NAME "Plastic_OpenGL")
 # Source files
 file(GLOB_RECURSE LOCAL_SRC src/*.cpp src/*.c)
 file(GLOB_RECURSE SHARED_SRC ${CMAKE_SOURCE_DIR}/Plastic_shared/src/*.cpp ${CMAKE_SOURCE_DIR}/Plastic_shared/src/*.c)

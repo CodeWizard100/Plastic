@@ -20,4 +20,8 @@ else()
 endif()
 
 # Create the executable
-add_executable(${MODULE_NAME} ${LOCAL_SRC} ${SHARED_SRC} ${SHARED_LIBS})
+# Create the executable
+add_executable(${MODULE_NAME} ${LOCAL_SRC} ${SHARED_SRC})
+
+# Link the precompiled libraries separately
+target_link_libraries(${MODULE_NAME} ${SHARED_LIBS})

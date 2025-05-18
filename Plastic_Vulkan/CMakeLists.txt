@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 3.5)
 set(MODULE_NAME Plastic_Vulkan)
 project(${MODULE_NAME})
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Remove the next line if MODULE_NAME is already correct
 # get_filename_component(MODULE_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-
-message(STATUS "Building target: ${MODULE_NAME}")
 
 file(GLOB_RECURSE LOCAL_SRC src/*.cpp src/*.c)
 file(GLOB_RECURSE SHARED_SRC ${CMAKE_SOURCE_DIR}/Plastic_shared/src/*.cpp ${CMAKE_SOURCE_DIR}/Plastic_shared/src/*.c)

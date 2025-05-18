@@ -4,7 +4,7 @@
 int main() {
 
     if (plastic_opengl_init() != 0) {
-        std::cerr << "Failed to initialize Plastic DirectX" << std::endl;
+        std::cerr << "Failed to initialize Plastic OpenGL" << std::endl;
         return -1;
     }
     while (!glfwWindowShouldClose(window)) {

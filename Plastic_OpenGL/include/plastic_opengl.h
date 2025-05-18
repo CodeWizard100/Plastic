@@ -1,5 +1,9 @@
 #pragma once
+constexpr float PI = 3.141592654f;
+constexpr float ConvertToRadians(float fDegrees) noexcept { return fDegrees * (PI / 180.0f); }
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
 // INCLUDES
 #include "plastic_core.h"
 #include "loadxml.h"    
@@ -19,7 +23,8 @@ static int PLASTIC_GL_HEIGHT = 720;
 static int PLASTIC_GL_FULLSCREEN = 0;
 static int PLASTIC_GL_BORDERLESS = 0;
 static int PLASTIC_GL_VSYNC = 1;
-static int PLASTIC_GL_MSAA = 1;
+static int PLASTIC_GL_MSAA = 0;
 static int PLASTIC_GL_MSAA_COUNT = 4;
+static int PLASTIC_GL_MSAA_QUALITY = 1;
 
 extern GLFWwindow* window; 

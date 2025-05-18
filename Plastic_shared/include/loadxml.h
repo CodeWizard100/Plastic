@@ -2,4 +2,4 @@
 #include "tinyxml2.h"
 #include "plastic_core.h"
 
-void loadxml(  int* width,   int* height,   int* fullscreen,   int* borderless,   int* vsync,   int* msaa,   int* msaa_count);
+void loadxml(  int* width,   int* height,   int* fullscreen,   int* borderless,   int* vsync,   int* msaa,   int* msaa_count, int* msaa_quality);

@@ -39,6 +39,17 @@ else()
     add_executable(Plastic_DirectX linux.cpp)
 endif()
 
+# Post-build: copy files from 'copy' folder to output dir if it exists
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/copy")
+    add_custom_command(TARGET Plastic_DirectX POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            "${CMAKE_CURRENT_SOURCE_DIR}/copy"
+            "$<TARGET_FILE_DIR:Plastic_DirectX>"
+        COMMENT "Copying contents from 'copy' folder to output directory"
+    )
+endif()
+
+
 set_target_properties(Plastic_DirectX PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     OUTPUT_NAME Plastic_DirectX

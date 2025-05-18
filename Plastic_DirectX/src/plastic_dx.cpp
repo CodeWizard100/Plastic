@@ -1,5 +1,6 @@
 #include "plastic_dx.h"
 #include "plastic_dx_glfwinput.h"
+#include "loadxml.h"
 #ifndef PLASTIC_DX_API
 #error "plastic_core.h not included!"
 #endif
@@ -48,6 +49,7 @@ int _plastic_dx_glfw_init() {
     return 0;
 }
 PLASTIC_DX_API int plastic_dx_init() {
+    loadxml(&PLASTIC_DX_WIDTH, &PLASTIC_DX_HEIGHT, &PLASTIC_DX_FULLSCREEN, &PLASTIC_DX_BORDERLESS, &PLASTIC_DX_VSYNC, &PLASTIC_DX_MSAA, &PLASTIC_DX_MSAA_COUNT);
     if (!glfwInit()) return -1;
 
     if (_plastic_dx_glfw_init() != 0) return -2;

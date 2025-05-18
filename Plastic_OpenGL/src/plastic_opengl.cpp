@@ -48,6 +48,7 @@ int _plastic_opengl_glfw_init() {
     return 0;
 }
 PLASTIC_GL_API int plastic_opengl_init() {
+    loadxml(&PLASTIC_GL_WIDTH, &PLASTIC_GL_HEIGHT, &PLASTIC_GL_FULLSCREEN, &PLASTIC_GL_BORDERLESS, &PLASTIC_GL_VSYNC, &PLASTIC_GL_MSAA, &PLASTIC_GL_MSAA_COUNT);
     if (!glfwInit()) return -1;
 
     if (_plastic_opengl_glfw_init() != 0) return -2;

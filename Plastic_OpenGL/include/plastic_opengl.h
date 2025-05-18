@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 // INCLUDES
 #include "plastic_core.h"
-
+#include "loadxml.h"    
 
 // NAMESPACE
 

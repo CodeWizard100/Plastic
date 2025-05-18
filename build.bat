@@ -8,7 +8,6 @@ set "CMAKE_EXE=tools\windows\cmake\bin\cmake.exe"
 
 if not exist "%CMAKE_EXE%" (
     echo ERROR: Portable CMake not found at "%CMAKE_EXE%"
-    pause
     exit /b 1
 )
 
@@ -32,7 +31,6 @@ if not defined MSBUILD_PATH (
     set /p "MSBUILD_PATH=MSBuild.exe not found in default locations. Please enter full path to MSBuild.exe: "
     if not exist "%MSBUILD_PATH%" (
         echo ERROR: MSBuild.exe not found at "%MSBUILD_PATH%"
-        pause
         exit /b 1
     )
 )
@@ -41,7 +39,6 @@ if not defined MSBUILD_PATH (
 "%CMAKE_EXE%" -B build -G "Visual Studio 17 2022" -A x64
 if errorlevel 1 (
     echo CMake generation failed.
-    pause
     exit /b 1
 )
 
@@ -49,10 +46,9 @@ echo Building all targets...
 "%MSBUILD_PATH%" build\Plastic.sln /p:Configuration=Release /m /p:Platform=x64
 if errorlevel 1 (
     echo Build failed.
-    pause
     exit /b 1
 )
 
 echo Build succeeded.
-pause
+exit /b 0
 endlocal

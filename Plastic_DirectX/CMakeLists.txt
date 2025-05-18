@@ -34,8 +34,7 @@ if(WIN32)
     )
 
 else()
-    # Linux build:
-    # Just build a simple linux.cpp from the root directory
+
     add_executable(Plastic_DirectX linux.cpp)
 endif()
 

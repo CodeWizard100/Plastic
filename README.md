@@ -5,9 +5,9 @@ With Plastic, you can focus on building your 3D scenes without worrying about th
 
 ---
 
-## 🔧 How to Build
+## How to Build
 
-### 🐧 On Linux
+### On Linux
 
 **Dependencies:**
 ```bash
@@ -21,10 +21,10 @@ chmod +x build.sh && ./build.sh
 
 ---
 
-### 🪟 On Windows
+### On Windows
 
 **Dependencies:**
-- Microsoft Visual Studio 2022 Build Tools
+- Visual Studio 2022 Build Tools
 
 **Build:**
 ```bat

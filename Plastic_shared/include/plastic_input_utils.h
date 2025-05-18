@@ -40,5 +40,5 @@ int get_key_bychar(char key)
     if (toupper(key) == '0') return GLFW_KEY_0;
     
 
-    return GLFW_KEY_UNKNOWN; // Invalid toupper(key)
+    return GLFW_KEY_UNKNOWN; // Invalid key/non printable key
 }

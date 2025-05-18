@@ -1,5 +1,17 @@
+#include "plastic_opengl.h"
 #include <iostream>
+
 int main() {
-    std::cout << "Hello, Plastic!" << std::endl;
+
+    if (plastic_opengl_init() != 0) {
+        std::cerr << "Failed to initialize Plastic DirectX" << std::endl;
+        return -1;
+    }
+    while (!glfwWindowShouldClose(window)) {
+        plastic_opengl_update();
+      
+    }
+    plastic_opengl_shutdown();
     return 0;
 }
+ 

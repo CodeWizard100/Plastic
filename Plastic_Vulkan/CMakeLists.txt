@@ -17,7 +17,9 @@ include_directories(
 
 if(WIN32)
     file(GLOB SHARED_LIBS ${CMAKE_SOURCE_DIR}/Plastic_shared/lib/*.lib)
+    file(GLOB LOCAL_LIBS lib/*.lib)
 else()
+    file(GLOB LOCAL_LIBS lib/*.a lib/*.o)
     file(GLOB SHARED_LIBS ${CMAKE_SOURCE_DIR}/Plastic_shared/lib/*.a ${CMAKE_SOURCE_DIR}/Plastic_shared/lib/*.o)
 endif()
 

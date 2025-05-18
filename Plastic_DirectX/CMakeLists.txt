@@ -1,29 +1,45 @@
 cmake_minimum_required(VERSION 3.5)
-set(MODULE_NAME Plastic_DirectX)
-project(${MODULE_NAME})
+project(Plastic_DirectX)
 
-# Remove the next line if MODULE_NAME is already correct
-# get_filename_component(MODULE_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-
-message(STATUS "Building target: ${MODULE_NAME}")
-
-file(GLOB_RECURSE LOCAL_SRC src/*.cpp src/*.c)
-file(GLOB_RECURSE SHARED_SRC ${CMAKE_SOURCE_DIR}/Plastic_shared/src/*.cpp ${CMAKE_SOURCE_DIR}/Plastic_shared/src/*.c)
-
-include_directories(
-    ${CMAKE_SOURCE_DIR}/Plastic_shared/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(WIN32)
+    # Windows build:
+    file(GLOB_RECURSE LOCAL_SRC src/*.cpp src/*.c)
+    file(GLOB_RECURSE SHARED_SRC ${CMAKE_SOURCE_DIR}/Plastic_shared/src/*.cpp ${CMAKE_SOURCE_DIR}/Plastic_shared/src/*.c)
+
+    include_directories(
+        ${CMAKE_SOURCE_DIR}/Plastic_shared/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        SYSTEM "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um"
+    )
+
     file(GLOB SHARED_LIBS ${CMAKE_SOURCE_DIR}/Plastic_shared/lib/*.lib)
+    file(GLOB LOCAL_LIBS lib/*.lib)
+
+    add_executable(Plastic_DirectX ${LOCAL_SRC} ${SHARED_SRC})
+
+    if(MSVC)
+        target_compile_options(Plastic_DirectX PRIVATE /EHsc)
+    endif()
+
+    target_link_libraries(Plastic_DirectX
+        ${SHARED_LIBS} ${LOCAL_LIBS}
+        "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.19041.0/um/x64/dxcompiler.lib"
+        "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.19041.0/um/x64/dxgi.lib"
+        "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.19041.0/um/x64/d3dcompiler.lib"
+        "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.19041.0/um/x64/d3d11.lib"
+    )
+
 else()
-    file(GLOB SHARED_LIBS ${CMAKE_SOURCE_DIR}/Plastic_shared/lib/*.a ${CMAKE_SOURCE_DIR}/Plastic_shared/lib/*.o)
+    # Linux build:
+    # Just build a simple linux.cpp from the root directory
+    add_executable(Plastic_DirectX linux.cpp)
 endif()
 
-add_executable(${MODULE_NAME} ${LOCAL_SRC} ${SHARED_SRC})
-set_target_properties(${MODULE_NAME} PROPERTIES
+set_target_properties(Plastic_DirectX PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    OUTPUT_NAME ${MODULE_NAME}
+    OUTPUT_NAME Plastic_DirectX
 )
-target_link_libraries(${MODULE_NAME} ${SHARED_LIBS} ${LOCAL_LIBS})

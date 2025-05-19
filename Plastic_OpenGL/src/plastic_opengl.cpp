@@ -89,6 +89,9 @@ int _plastic_opengl_glfw_init() {
         width = mode->width;
         height = mode->height;
         refreshRate = mode->refreshRate;
+        PLASTIC_GL_WIDTH = width;
+        PLASTIC_GL_HEIGHT = height;
+        
         glfwWindowHint(GLFW_FOCUSED, GLFW_TRUE);
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
        

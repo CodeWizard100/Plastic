@@ -4,7 +4,7 @@
 #include "plastic_camera.h"
 #include "plastic_model_class.h"
 #include "plastic_shader_class.h"
-
+#include <chrono>
 #include "loadxml.h"
 
 #ifndef PLASTIC_DX_API
@@ -111,7 +111,13 @@ PLASTIC_DX_API int plastic_dx_init() {
     
     return 0;
 }
-
+void _get_deltaTime(float& deltaTime) {
+    static auto lastTime = std::chrono::high_resolution_clock::now();
+    auto currentTime = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float> elapsed = currentTime - lastTime;
+    deltaTime = elapsed.count();
+    lastTime = currentTime;
+}
 PLASTIC_DX_API void plastic_dx_shutdown() {
     
 	// Release the color shader object.
@@ -151,13 +157,24 @@ PLASTIC_DX_API void plastic_dx_render() {
 
 	    m_Direct3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
         m_Camera->Render();
+        float deltaTime = 0.0f;
+        _get_deltaTime(deltaTime);
 
         XMMATRIX viewMatrix, projectionMatrix;
        // Rotate by a small amount per frame (e.g., 1 degree per frame)
-float rotationSpeed = XMConvertToRadians(1.0f); // 1 degree in radians
-XMMATRIX currentWorld = m_Model->GetWorldMatrix();
-XMMATRIX rotation = XMMatrixRotationY(rotationSpeed);
-m_Model->SetWorldMatrix(rotation * currentWorld);
+        // Rotation speed in degrees per second
+        float degreesPerSecond = 90.0f; // rotate 90 degrees per second
+
+        // Convert to radians and multiply by delta time to make it frame-independent
+        float rotationSpeed = XMConvertToRadians(degreesPerSecond) * deltaTime;
+
+        // Compute rotation matrix
+        XMMATRIX rotation = XMMatrixRotationY(rotationSpeed);
+
+        // Apply rotation to current world matrix
+        XMMATRIX currentWorld = m_Model->GetWorldMatrix();
+        m_Model->SetWorldMatrix(rotation * currentWorld);
+
 
         m_Camera->GetViewMatrix(viewMatrix);
         m_Direct3D->GetProjectionMatrix(projectionMatrix);

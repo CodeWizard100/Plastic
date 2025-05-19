@@ -213,7 +213,7 @@ PLASTIC_GL_API void plastic_opengl_render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     float time = glfwGetTime(); // seconds since start
-glm::mat4 model = glm::rotate(glm::mat4(1.0f), time, glm::vec3(0.0f, 1.0f, 0.0f));
+    glm::mat4 model = glm::rotate(glm::mat4(90.0f * time), time, glm::vec3(0.0f, 90.0f * time, 0.0f));
 
     glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 2.5f),
                                  glm::vec3(0.0f, 0.0f, 0.0f),

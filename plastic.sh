@@ -12,4 +12,4 @@ chmod +x build.sh
 cd build/bin
 clear
 echo "Build is done!"
-echo "ls to see binaries!"
+echo "ls Plastic/build/bin to see binaries!"

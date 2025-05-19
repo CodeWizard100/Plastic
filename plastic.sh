@@ -5,7 +5,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 sudo apt install -y git build-essential g++ gcc cmake
-rm -rf Plastic; git clone https://github.com/CodeWizard100/Plastic.git || true
+sudo rm -rf Plastic; git clone https://github.com/CodeWizard100/Plastic.git || true
 cd Plastic || true
 chmod +x build.sh
 ./build.sh

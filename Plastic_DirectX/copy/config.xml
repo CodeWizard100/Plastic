@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <window width="1280" height="720" fullscreen="0" borderless="0" vsync="1" msaa="0" msaa_count="4" msaa_quality="1" />
+</config>

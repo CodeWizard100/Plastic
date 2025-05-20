@@ -29,6 +29,7 @@ sudo apt install -y wget && wget https://raw.githubusercontent.com/CodeWizard100
 
 **Dependencies:**
 - Visual Studio 2022 Build Tools
+- Windows Kit 10.0.19041.0 (If building DirectX)
 
 **Build:**
 ```bat

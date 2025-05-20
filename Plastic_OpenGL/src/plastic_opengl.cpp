@@ -1,17 +1,24 @@
 #include "plastic_core.h"
 #include "plastic_opengl.h"
+#include "plastic_opengl_class.h"
 #include <chrono>
 #include "loadxml.h"
 
 #ifndef PLASTIC_GL_API
 #error "plastic_core.h not included!"
 #endif
+OpenGLClass openglclass = OpenGLClass();
 void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(win, GLFW_TRUE);
 }
-
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    // make sure the viewport matches the new window dimensions; note that width and 
+    // height will be significantly larger than specified on retina displays.
+    glViewport(0, 0, width, height);
+}
 int _plastic_gl_glfw_init() {
     if (PLASTIC_GL_MSAA) {
         glfwWindowHint(GLFW_SAMPLES, PLASTIC_GL_MSAA_COUNT);
@@ -48,7 +55,7 @@ int _plastic_gl_glfw_init() {
     }
 
     glfwMakeContextCurrent(window);
-   
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     if (PLASTIC_GL_VSYNC) {
         glfwSwapInterval(1);
@@ -68,6 +75,11 @@ PLASTIC_GL_API int plastic_gl_init() {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         return -3;
     }
+
+    if (openglclass.Initalize() != 0) {
+        std::cerr << "Failed to initalize OpenGL" << std::endl;
+        return -4;
+    }
     // Set the key callback
     glfwSetKeyCallback(window, key_callback);
     
@@ -76,14 +88,17 @@ PLASTIC_GL_API int plastic_gl_init() {
 
 PLASTIC_GL_API void plastic_gl_shutdown() {
     
-
+    openglclass.Shutdown();
     glfwDestroyWindow(window);
     glfwTerminate();
 }
 PLASTIC_GL_API void plastic_gl_render() {
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-
+    // here, we pass it to our class to handle everything for rendering
+    if (openglclass.initalized) {
+        openglclass.Render();
+    } else {
+        throw std::runtime_error("OpenGL Not Initalized Before Rendering!");
+    }
 }
 
 PLASTIC_GL_API void plastic_gl_update() {

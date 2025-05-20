@@ -6,6 +6,8 @@ class OpenGLClass {
         int Initalize();
         void Render();
         void Shutdown();
+        bool initalized = false;
     private:
         GLuint VBO, VAO, EBO;
+        GLuint shaderProgram;
 };

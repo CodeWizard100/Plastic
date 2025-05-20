@@ -1,14 +1,9 @@
-#include "plastic_opengl_class.h"
+#include "plastic_opengl.h"
 
 int main() {
-    OpenGLClass opengl;
-    if (opengl.Initalize() != 0) {
-        return -1;
+    if (plastic_gl_init() != 0) {return -1;}
+    while (!glfwWindowShouldClose(window)) {
+        plastic_gl_update();
     }
-    while (!glfwWindowShouldClose(opengl.GetWindow())) {
-        opengl.Render();
-        glfwSwapBuffers(opengl.GetWindow());
-        glfwPollEvents();
-    }
-    opengl.Shutdown();
+    plastic_gl_shutdown();
 }

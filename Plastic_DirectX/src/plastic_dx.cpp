@@ -15,6 +15,7 @@ D3DClass* m_Direct3D; // Private Direct3D object
 CameraClass* m_Camera;
 ModelClass* m_Model;
 ColorShaderClass* m_ColorShader;
+
 int _plastic_dx_glfw_init() {
     if (PLASTIC_DX_MSAA) {
         glfwWindowHint(GLFW_SAMPLES, PLASTIC_DX_MSAA_COUNT);

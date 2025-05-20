@@ -1,3 +1,4 @@
+#pragma once
 #include "plastic_opengl.h"
 
 class ShaderClass {

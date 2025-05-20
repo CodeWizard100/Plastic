@@ -10,27 +10,10 @@ OpenGLClass::~OpenGLClass() {
     Shutdown();
 }
 
-void OpenGLClass::SetCameraPosition(float x, float y, float z) {
-    // Set camera position
-    glm::vec3 cameraPos(x, y, z);
-    glm::mat4 view = glm::translate(glm::mat4(1.0f), -cameraPos);
-    shader.SetMatrices(glm::mat4(1.0f), view);
-}
-
-void OpenGLClass::SetCameraRotation(float angle, float x, float y, float z) {
-    // Set camera rotation
-    glm::mat4 view = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(x, y, z));
-    shader.SetMatrices(glm::mat4(1.0f), view);
-}
-
-void OpenGLClass::SetCameraScale(float scale) {
-    // Set camera scale
-    glm::mat4 view = glm::scale(glm::mat4(1.0f), glm::vec3(scale));
-    shader.SetMatrices(glm::mat4(1.0f), view);
-}
 
 
 int OpenGLClass::Initalize() {
+    std::cout << a;
     // Initialize GLFW
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW" << std::endl;
@@ -85,7 +68,8 @@ int OpenGLClass::Initalize() {
 
     // Set the matrices uniforms before rendering
     shader.SetMatrices(projection, view);
-
+    //camera.Initalize(&shader);
+    
     return 0;
 }
 
@@ -121,8 +105,8 @@ void OpenGLClass::Shutdown() {
     // Cleanup
     shader.Shutdown();
     glDeleteVertexArrays(1, &VAO);
-glDeleteBuffers(1, &VBO);
-glDeleteBuffers(1, &EBO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
 
     glfwDestroyWindow(window);
     glfwTerminate();

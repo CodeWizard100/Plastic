@@ -1,5 +1,9 @@
+#pragma once
 #include "plastic_opengl.h"
 #include "plastic_opengl_shader.h"
+class CameraGLClass {
+
+};
 class OpenGLClass {
 public:
     OpenGLClass();
@@ -19,9 +23,9 @@ public:
     GLuint GetVAO() { return VAO; }
     GLuint GetVBO() { return VBO; }
     GLuint GetEBO() { return EBO; }
-    void SetCameraPosition(float x, float y, float z);
-    void SetCameraRotation(float angle, float x, float y, float z);
-    void SetCameraScale(float scale);
+    int a = 0;
+    //ShaderClass* GetShader() {return &shader;}
+    //CameraClass* GetCamera() {return &camera;}
 private:
     GLFWwindow* window;
     GLuint VAO, VBO, EBO;

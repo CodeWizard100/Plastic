@@ -13,10 +13,6 @@ ShaderClass::ShaderClass() {
 }
 
 ShaderClass::~ShaderClass() {
-<<<<<<< HEAD
-=======
-    // Destructor
->>>>>>> 6232b88ed33750aa027905df3895dfed9f42780c
     Shutdown();
 }
 

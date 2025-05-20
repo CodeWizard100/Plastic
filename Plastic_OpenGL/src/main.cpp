@@ -1,17 +1,14 @@
-#include "plastic_opengl.h"
-#include <iostream>
+#include "plastic_opengl_class.h"
 
 int main() {
-
-    if (plastic_opengl_init() != 0) {
-        std::cerr << "Failed to initialize Plastic OpenGL" << std::endl;
+    OpenGLClass opengl;
+    if (opengl.Initalize() != 0) {
         return -1;
     }
-    while (!glfwWindowShouldClose(window)) {
-        plastic_opengl_update();
-      
+    while (!glfwWindowShouldClose(opengl.GetWindow())) {
+        opengl.Render();
+        glfwSwapBuffers(opengl.GetWindow());
+        glfwPollEvents();
     }
-    plastic_opengl_shutdown();
-    return 0;
+    opengl.Shutdown();
 }
- 

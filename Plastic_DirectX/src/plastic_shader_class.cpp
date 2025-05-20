@@ -1,5 +1,6 @@
 #include "plastic_shader_class.h"
 #include <iostream>
+#include <filesystem>
 ColorShaderClass::ColorShaderClass()
 {
 	m_vertexShader = 0;
@@ -26,19 +27,43 @@ bool ColorShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 	int error;
 
 
-	// Set the filename of the vertex shader.
-	error = wcscpy_s(vsFilename, 128, L"C:\\Users\\szymo\\Desktop\\Plastic\\build\\bin\\Release\\Color.vs");
-	if(error != 0)
-	{
+	  if (std::filesystem::exists("Color.vs")) {
+        error = wcscpy_s(vsFilename, 128, L"Color.vs");
+    } else {
+        #ifdef ENABLE_FALLBACK
+		std::wstring fallbackVS = std::wstring(L"" FALLBACK_PATH L"/Color.vs");
+        if (std::filesystem::exists(fallbackVS)) {
+            error = wcscpy_s(vsFilename, 128, fallbackVS.c_str());
+        } else {
+            return false;
+        }
+		#else
 		return false;
-	}
+		#endif
+    }
 
-	// Set the filename of the pixel shader.
-	error = wcscpy_s(psFilename, 128, L"C:\\Users\\szymo\\Desktop\\Plastic\\build\\bin\\Release\\Color.ps");
-	if(error != 0)
-	{
+    if (error != 0) {
+        return false;
+    }
+
+    if (std::filesystem::exists("Color.ps")) {
+        error = wcscpy_s(psFilename, 128, L"Color.ps");
+    } else {
+		#ifdef ENABLE_FALLBACK
+        std::wstring fallbackPS = std::wstring(L"" FALLBACK_PATH L"/Color.ps");
+        if (std::filesystem::exists(fallbackPS)) {
+            error = wcscpy_s(psFilename, 128, fallbackPS.c_str());
+        } else {
+            return false;
+        }
+		#else
 		return false;
-	}
+		#endif
+    }
+
+    if (error != 0) {
+        return false;
+    }
 
 	// Initialize the vertex and pixel shaders.
 	result = InitializeShader(device, hwnd, vsFilename, psFilename);

@@ -29,4 +29,6 @@ set_target_properties(${MODULE_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     OUTPUT_NAME ${MODULE_NAME}
 )
+target_compile_definitions(${MODULE_NAME} PRIVATE FALLBACK_PATH=\"$<TARGET_FILE_DIR:${MODULE_NAME}>\")
+
 target_link_libraries(${MODULE_NAME} ${SHARED_LIBS} ${LOCAL_LIBS})

@@ -28,8 +28,18 @@ else()
 endif()
 
 add_executable(${MODULE_NAME} ${LOCAL_SRC} ${SHARED_SRC})
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/copy")
+    add_custom_command(TARGET Plastic_OpenGL POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            "${CMAKE_CURRENT_SOURCE_DIR}/copy"
+            "$<TARGET_FILE_DIR:Plastic_OpenGL>"
+        COMMENT "Copying contents from 'copy' folder to output directory"
+    )
+endif() 
 set_target_properties(${MODULE_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     OUTPUT_NAME ${MODULE_NAME}
 )
+target_compile_definitions(${MODULE_NAME} PRIVATE FALLBACK_PATH=\"$<TARGET_FILE_DIR:${MODULE_NAME}>\")
+
 target_link_libraries(${MODULE_NAME} ${SHARED_LIBS} ${LOCAL_LIBS})

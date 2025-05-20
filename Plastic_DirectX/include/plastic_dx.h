@@ -34,4 +34,5 @@ static int PLASTIC_DX_VSYNC = 1;
 static int PLASTIC_DX_MSAA = 0;
 static int PLASTIC_DX_MSAA_COUNT = 4;
 static int PLASTIC_DX_MSAA_QUALITY = 1;
+#define ENABLE_FALLBACK
 extern GLFWwindow* window; 

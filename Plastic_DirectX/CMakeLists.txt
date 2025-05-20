@@ -54,3 +54,5 @@ set_target_properties(Plastic_DirectX PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     OUTPUT_NAME Plastic_DirectX
 )
+target_compile_definitions(Plastic_DirectX PRIVATE FALLBACK_PATH=\"$<TARGET_FILE_DIR:Plastic_DirectX>\")
+

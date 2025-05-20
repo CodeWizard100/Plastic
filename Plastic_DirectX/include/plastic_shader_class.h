@@ -3,6 +3,7 @@
 #include <d3dcompiler.h>
 #include <directxmath.h>
 #include <fstream>
+#include "plastic_dx.h"
 using namespace DirectX;
 using namespace std;
 

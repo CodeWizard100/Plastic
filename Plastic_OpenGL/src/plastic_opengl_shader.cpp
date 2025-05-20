@@ -11,7 +11,7 @@ ShaderClass::ShaderClass() {
 }
 ShaderClass::~ShaderClass() {
     // Destructor
-
+    Shutdown();
 }
 int ShaderClass::Initialize(const char* vertexPath, const char* fragmentPath) {
     // Load and compile vertex shader

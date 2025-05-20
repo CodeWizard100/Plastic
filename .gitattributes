@@ -2,3 +2,4 @@
 tools/**/*.c linguist-vendored
 tools/**/*.cpp linguist-vendored
 tools/**/*.h linguist-vendored
+tools/**/*.cmake linguist-vendored

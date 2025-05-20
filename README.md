@@ -18,6 +18,10 @@ sudo apt install g++ cmake build-essential git
 ```bash
 chmod +x build.sh && ./build.sh
 ```
+Or Just run bootstrap script!
+```bash
+sudo apt install -y wget && wget https://raw.githubusercontent.com/CodeWizard100/Plastic/refs/heads/master/plastic.sh -O plastic.sh && sudo bash plastic.sh
+```
 
 ---
 

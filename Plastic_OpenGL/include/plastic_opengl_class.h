@@ -19,7 +19,9 @@ public:
     GLuint GetVAO() { return VAO; }
     GLuint GetVBO() { return VBO; }
     GLuint GetEBO() { return EBO; }
-    
+    void SetCameraPosition(float x, float y, float z);
+    void SetCameraRotation(float angle, float x, float y, float z);
+    void SetCameraScale(float scale);
 private:
     GLFWwindow* window;
     GLuint VAO, VBO, EBO;

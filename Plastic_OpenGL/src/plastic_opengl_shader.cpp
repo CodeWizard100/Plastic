@@ -2,17 +2,20 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 ShaderClass::ShaderClass() {
-    // Constructor
     shaderProgram = 0;
     vertexShader = 0;
     fragmentShader = 0;
-
 }
+
 ShaderClass::~ShaderClass() {
-    // Destructor
-
+    Shutdown();
 }
+
 int ShaderClass::Initialize(const char* vertexPath, const char* fragmentPath) {
     // Load and compile vertex shader
     std::string vertexCode;
@@ -32,7 +35,6 @@ int ShaderClass::Initialize(const char* vertexPath, const char* fragmentPath) {
     glShaderSource(vertexShader, 1, &vShaderCode, NULL);
     glCompileShader(vertexShader);
 
-    // Check for compilation errors
     int success;
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
     if (!success) {
@@ -60,7 +62,6 @@ int ShaderClass::Initialize(const char* vertexPath, const char* fragmentPath) {
     glShaderSource(fragmentShader, 1, &fShaderCode, NULL);
     glCompileShader(fragmentShader);
 
-    // Check for compilation errors
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     if (!success) {
         char infoLog[512];
@@ -74,7 +75,7 @@ int ShaderClass::Initialize(const char* vertexPath, const char* fragmentPath) {
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
-    // Check for linking errors
+
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
     if (!success) {
         char infoLog[512];
@@ -82,10 +83,32 @@ int ShaderClass::Initialize(const char* vertexPath, const char* fragmentPath) {
         std::cerr << "Shader Program Linking Error: " << infoLog << std::endl;
         return -1;
     }
-    // Delete shaders as they're linked into the program now and no longer needed
+
+    // Delete shaders after linking
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+
     return 0;
+}
+
+// New method to set projection and view matrices
+void ShaderClass::SetMatrices(const glm::mat4& projection, const glm::mat4& view) {
+    glUseProgram(shaderProgram);
+
+    int projLoc = glGetUniformLocation(shaderProgram, "projection");
+    int viewLoc = glGetUniformLocation(shaderProgram, "view");
+
+    if (projLoc == -1) {
+        std::cerr << "Warning: 'projection' uniform not found in shader.\n";
+    } else {
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+    }
+
+    if (viewLoc == -1) {
+        std::cerr << "Warning: 'view' uniform not found in shader.\n";
+    } else {
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+    }
 }
 
 void ShaderClass::Shutdown() {

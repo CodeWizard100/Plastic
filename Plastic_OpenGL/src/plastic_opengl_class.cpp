@@ -10,6 +10,26 @@ OpenGLClass::~OpenGLClass() {
     Shutdown();
 }
 
+void OpenGLClass::SetCameraPosition(float x, float y, float z) {
+    // Set camera position
+    glm::vec3 cameraPos(x, y, z);
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), -cameraPos);
+    shader.SetMatrices(glm::mat4(1.0f), view);
+}
+
+void OpenGLClass::SetCameraRotation(float angle, float x, float y, float z) {
+    // Set camera rotation
+    glm::mat4 view = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(x, y, z));
+    shader.SetMatrices(glm::mat4(1.0f), view);
+}
+
+void OpenGLClass::SetCameraScale(float scale) {
+    // Set camera scale
+    glm::mat4 view = glm::scale(glm::mat4(1.0f), glm::vec3(scale));
+    shader.SetMatrices(glm::mat4(1.0f), view);
+}
+
+
 int OpenGLClass::Initalize() {
     // Initialize GLFW
     if (!glfwInit()) {
@@ -37,6 +57,7 @@ int OpenGLClass::Initalize() {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+    
 
     // Set viewport
     glViewport(0, 0, PLASTIC_GL_WIDTH, PLASTIC_GL_HEIGHT);
@@ -53,9 +74,17 @@ int OpenGLClass::Initalize() {
         std::cerr << "Failed to initialize shaders" << std::endl;
         return -1;
         #endif
-    } 
+    }  
 
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)PLASTIC_GL_WIDTH / PLASTIC_GL_HEIGHT, 0.1f, 100.0f);
+    glm::mat4 view = glm::lookAt(
+        glm::vec3(0.0f, 0.0f, 3.0f),  // camera position
+        glm::vec3(0.0f, 0.0f, 0.0f),  // target
+        glm::vec3(0.0f, 1.0f, 0.0f)   // up vector
+    );
 
+    // Set the matrices uniforms before rendering
+    shader.SetMatrices(projection, view);
 
     return 0;
 }
